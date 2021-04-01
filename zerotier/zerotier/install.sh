@@ -156,11 +156,13 @@ install_now(){
 		echo_date "安装64位zerotier-one..."
 		cp -fP /tmp/${module}/bin64/* /koolshare/bin/
 		cp -fP /tmp/${module}/lib64/* /koolshare/lib/
+		cp -fP /tmp/${module}/lib64/.flag_*.txt /koolshare/lib/
 	fi
 	if [ "$ARCH" == "armv7l" ]; then
 		echo_date "安装32位zerotier-one..."
 		cp -fP /tmp/${module}/bin32/* /koolshare/bin/
 		cp -fP /tmp/${module}/lib32/* /koolshare/lib/
+		cp -fP /tmp/${module}/lib32/.flag_*.txt /koolshare/lib/
 	fi
 
 	# Permissions
