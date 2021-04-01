@@ -9,7 +9,7 @@ rm -rf /koolshare/bin/zerotier*.png >/dev/null 2>&1
 rm -rf /koolshare/res/icon-zerotier.png >/dev/null 2>&1
 rm -rf /koolshare/scripts/zerotier_* >/dev/null 2>&1
 rm -rf /koolshare/webs/Module_zerotier.asp >/dev/null 2>&1
-rm -rf / koolshare/share/misc/magic >/dev/null 2>&1
+rm -rf /koolshare/share/misc/magic >/dev/null 2>&1
 find /koolshare/init.d -name "*zerotier*" | xargs rm -rf
 
 # delete lib files
