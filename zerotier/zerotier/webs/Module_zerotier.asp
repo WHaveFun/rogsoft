@@ -511,7 +511,7 @@ function get_ifaces_status(){
 			//// console.log(tr_nu);
 			//// $("#zerotier_route_table").find("tr:gt(" + tr_nu + "):lt(-1)").remove();
 			//// $('#zerotier_route_table tr:eq(' + tr_nu + ')').after(refresh_html());			
-			//// setTimeout("get_ifaces_status();", 11000);
+			setTimeout("get_ifaces_status();", 11000);
 		},
 		error: function(XmlHttpRequest, textStatus, errorThrown){
 			console.log(XmlHttpRequest.responseText);
