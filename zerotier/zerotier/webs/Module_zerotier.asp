@@ -30,7 +30,7 @@ a:focus {
 	outline: none;
 }
 .SimpleNote {
-	padding:5px 10px;
+	padding:5px 5px;
 }
 i {
     color: #FC0;
@@ -95,7 +95,7 @@ i {
 	border:0px solid #222;
 	width:98%;
 	font-family:'Lucida Console';
-	font-size:13px;
+	font-size:12px;
 	padding-left:13px;
 	padding-right:33px;
 	background: transparent;
@@ -190,7 +190,7 @@ input[type=button]:focus {
 	border:1px solid #000;
 	width:99%;
 	font-family:'Lucida Console';
-	font-size:13px;
+	font-size:11px;
 	padding-left:3px;
 	padding-right:22px;
 	background:transparent;
@@ -202,16 +202,12 @@ input[type=button]:focus {
 .FormTable th {
 	width: 30%;
 }
-.FormTable, .FormTable th, .FormTable td, .FormTable thead td, .FormTable_table, .FormTable_table th, .FormTable_table td, .FormTable_table thead td, span, textarea, .input_ss_table {
-	font-family: Roboto-Light, "Microsoft JhengHei";
-	font-size: 14px;
-}
 .formfonttitle {
 	font-family: Roboto-Light, "Microsoft JhengHei";
-	font-size: 20px;
-	margin-left: 10px;
+	font-size: 18px;
+	margin-left: 5px;
 }
-.FormTitle {
+.FormTitle, .FormTable, .FormTable th, .FormTable td, .FormTable thead td, .FormTable_table, .FormTable_table th, .FormTable_table td, .FormTable_table thead td {
 	font-size: 14px;
 	font-family: Roboto-Light, "Microsoft JhengHei";
 }
@@ -1145,7 +1141,7 @@ function apply_uppoaded_moon(Info) {
 								<tr>
 									<td bgcolor="#4D595D" colspan="3" valign="top">
 										<div>&nbsp;</div>
-										<div class="formfonttitle">zerotier<lable id="zerotier_version"></lable></div>
+										<div class="formfonttitle">ZeroTier<lable id="zerotier_version"></lable></div>
 										<div style="float:right; width:15px; height:25px;margin-top:-20px">
 											<img id="return_btn" onclick="reload_Soft_Center();" align="right" title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></img>
 										</div>
