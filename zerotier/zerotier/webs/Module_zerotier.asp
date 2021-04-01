@@ -1188,7 +1188,7 @@ function apply_uppoaded_moon(Info) {
 												<tr id="zeroTier_nat_tr" style="display:none;">
 													<th title="允许Zerotier的拨入客户端访问路由器LAN资源（需要在 Zerotier管理页面设定到LAN网段的路由表）">自动允许客户端NAT</th>
 													<td>
-														<input type="checkbox" id="zerotier_nat" style="vertical-align:middle;">
+														<input type="checkbox" id="zerotier_nat" style="vertical-align:middle;" checked="checked">
 													</td>
 												</tr>
 												<tr id="zeroTier_id_tr" style="display:none;">
