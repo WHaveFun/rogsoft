@@ -278,19 +278,19 @@
             "version": "3.9"
         }, 
         {
-            "build_date": "2021-04-01_17:48:24", 
+            "build_date": "2021-04-01_21:17:34", 
             "changelog": "", 
             "description": "ZeroTier 内网穿透", 
             "home_url": "Module_zerotier.asp", 
-            "md5": "e7c4a3a07b0475ce45a120d0a9fb1d47", 
+            "md5": "cfa5813a6ec8c9e511a9df8dd1baf1e9", 
             "name": "zerotier", 
             "tar_url": "zerotier/zerotier.tar.gz", 
             "title": "ZeroTier", 
-            "version": "1.3.4"
+            "version": "1.3.5"
         }
     ], 
     "home_url": "https://raw.githubusercontent.com/koolshare/koolshare.github.io/master", 
-    "md5": "28917c47c932b25c9a3c68a7a19f6ca1", 
+    "md5": "73f760a04c89b0bd735dfda7a1838c66", 
     "tar_url": "softcenter/softcenter.tar.gz", 
-    "version": "1.6.8"
+    "version": "1.6.9"
 }
