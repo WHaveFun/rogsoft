@@ -5,13 +5,18 @@ alias echo_date='echo 【$(TZ=UTC-8 date -R +%Y年%m月%d日\ %X)】:'
 echo_date "删除zerotier插件相关文件！"
 rm -rf /tmp/zerotier* >/dev/null 2>&1
 rm -rf /koolshare/bin/file >/dev/null 2>&1
-rm -rf /koolshare/bin/zerotier*.png >/dev/null 2>&1
+rm -rf /koolshare/bin/zerotier* >/dev/null 2>&1
 rm -rf /koolshare/res/icon-zerotier.png >/dev/null 2>&1
 rm -rf /koolshare/res/zt_*.png >/dev/null 2>&1
 rm -rf /koolshare/scripts/zerotier_* >/dev/null 2>&1
 rm -rf /koolshare/webs/Module_zerotier.asp >/dev/null 2>&1
 rm -rf /koolshare/share/misc/magic >/dev/null 2>&1
 find /koolshare/init.d -name "*zerotier*" | xargs rm -rf
+
+FLAG=$(ls -aelR /koolshare/share | sed '/:$/d' | sed '/^$/d' | sed '/^d/d' 2>/dev/null)
+if [ -z "$FLAG" ];then
+	rm -rf /koolshare/share
+fi
 
 # delete lib files
 if [ ! -d "/koolshare/lib" -o ! -f "/koolshare/lib/.flag_zerotier.txt" ];then
