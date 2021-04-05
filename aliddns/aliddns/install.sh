@@ -131,7 +131,7 @@ install_now(){
 
 	# stop first
 	local ENABLE=$(dbus get ${module}_enable)
-	if [ -n "${ENABLE}" ];then
+	if [ "${ENABLE}" == "1" ];then
 		sh /koolshare/scripts/aliddns_config.sh stop >/dev/null 2>&1
 	fi
 
@@ -174,6 +174,7 @@ install_now(){
 
 	# re-enable
 	if [ "${ENABLE}" == "1" ];then
+		echo_date "安装完毕，重新启用${TITLE}插件！"
 		sh /koolshare/scripts/aliddns_config.sh ks 1
 	fi
 	

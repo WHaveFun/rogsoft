@@ -12,22 +12,22 @@
             "version": "3.3"
         }, 
         {
-            "build_date": "2021-04-05_20:41:20", 
+            "build_date": "2021-04-05_20:54:13", 
             "changelog": "", 
             "description": "aliddns", 
             "home_url": "Module_aliddns.asp", 
-            "md5": "88986f1d1138eab46fb4014bb6d745ad", 
+            "md5": "4e189be94e16a837d98fd66680e8af3d", 
             "name": "aliddns", 
             "tar_url": "aliddns/aliddns.tar.gz", 
             "title": "阿里DDNS", 
             "version": "2.1"
         }, 
         {
-            "build_date": "2021-02-08_21:38:25", 
+            "build_date": "2021-04-05_20:54:09", 
             "changelog": "", 
             "description": "linux下载利器", 
             "home_url": "Module_aria2.asp", 
-            "md5": "b8cf40dc4ff0f5f0bb7d194979906825", 
+            "md5": "a37d87ed6b966ef3241adb3e313676cb", 
             "name": "aria2", 
             "tar_url": "aria2/aria2.tar.gz", 
             "title": "aria2", 
