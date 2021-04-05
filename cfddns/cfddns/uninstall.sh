@@ -1,5 +1,4 @@
 #!/bin/sh
-eval `dbus export cfddns_`
 source /koolshare/scripts/base.sh
 
 find /koolshare/init.d/ -name "*cfddns*" | xargs rm -rf
