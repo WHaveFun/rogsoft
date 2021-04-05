@@ -129,12 +129,13 @@ install_now(){
 
 	# stop first
 	local ENABLE=$(dbus get ${module}_enable)
-	if [ -n "${ENABLE}" ];then
+	if [ "${ENABLE}" == "1" ];then
 		killall ${module} >/dev/null 2>&1
 	fi
 
 	# remove some file first
 	find /koolshare/init.d/ -name "*${module}.sh*"|xargs rm -rf >/dev/null 2>&1
+	find /koolshare/bin/ -name "*${module}*"|xargs rm -rf >/dev/null 2>&1
 	
 	# isntall file
 	echo_date "安装插件相关文件..."
@@ -146,7 +147,6 @@ install_now(){
 	if [ "${ARCH}" == "armv7l" ];then
 		cp -rf /tmp/${module}/bin/ddnsto_arm /koolshare/bin/ddnsto
 	fi
-	cp -rf /tmp/${module}/bin/* /koolshare/bin/
 	cp -rf /tmp/${module}/res/* /koolshare/res/
 	cp -rf /tmp/${module}/scripts/* /koolshare/scripts/
 	cp -rf /tmp/${module}/webs/* /koolshare/webs/
@@ -158,6 +158,7 @@ install_now(){
 
 	# make start up script link
 	[ ! -L "/koolshare/init.d/S70${module}.sh" ] && ln -sf /koolshare/scripts/${module}_config.sh /koolshare/init.d/S70${module}.sh
+	
 	# intall different UI
 	install_ui
 
@@ -174,6 +175,7 @@ install_now(){
 
 	# re-enable
 	if [ "${ENABLE}" == "1" ];then
+		echo_date "安装完毕，重新启用${TITLE}插件！"
 		sh /koolshare/scripts/ddnsto_config.sh start
 	fi
 	
