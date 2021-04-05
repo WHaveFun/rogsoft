@@ -12,11 +12,11 @@
             "version": "3.3"
         }, 
         {
-            "build_date": "2021-02-08_21:38:25", 
+            "build_date": "2021-04-05_20:41:20", 
             "changelog": "", 
             "description": "aliddns", 
             "home_url": "Module_aliddns.asp", 
-            "md5": "41cbbab1af121379efe32d207684ae8b", 
+            "md5": "88986f1d1138eab46fb4014bb6d745ad", 
             "name": "aliddns", 
             "tar_url": "aliddns/aliddns.tar.gz", 
             "title": "阿里DDNS", 
@@ -278,11 +278,11 @@
             "version": "3.9"
         }, 
         {
-            "build_date": "2021-04-02_23:29:45", 
+            "build_date": "2021-04-05_20:41:08", 
             "changelog": "", 
             "description": "ZeroTier 内网穿透", 
             "home_url": "Module_zerotier.asp", 
-            "md5": "746d55971b7067f156f25ee0a40b2cb4", 
+            "md5": "744a7f084416be5f12c5319391c705de", 
             "name": "zerotier", 
             "tar_url": "zerotier/zerotier.tar.gz", 
             "title": "ZeroTier", 
