@@ -66,12 +66,12 @@ get_ui_type(){
 		ROG_RTAC86U=1
 	fi
 	# GT-AC2900
-	if [ "${MODEL}" == "GT-AC2900" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AC2900" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AC2900从386.1开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAC2900=0
 	fi
 	# GT-AX11000
-	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AX11000从386.2开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAX11000=0
 	fi
@@ -110,9 +110,11 @@ install_ui(){
 	get_ui_type
 	if [ "${UI_TYPE}" == "ROG" ];then
 		echo_date "安装ROG皮肤！"
+		sed -i '/asuscss/d' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 	fi
 	if [ "${UI_TYPE}" == "TUF" ];then
 		echo_date "安装TUF皮肤！"
+		sed -i '/asuscss/d' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 		sed -i 's/3e030d/3e2902/g;s/91071f/92650F/g;s/680516/D0982C/g;s/cf0a2c/c58813/g;s/700618/74500b/g;s/530412/92650F/g' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 	fi
 	if [ "${UI_TYPE}" == "ASUSWRT" ];then
@@ -129,12 +131,14 @@ install_now(){
 
 	# stop first
 	local ENABLE=$(dbus get ${module}_enable)
-	if [ "${ENABLE}" == "1" ];then
+	local PID=$(pidof ${module})
+	if [ -n "${PID}" ];then
+		echo_date "安装前先关闭${TITLE}插件，以保证更新成功！"
 		killall ${module} >/dev/null 2>&1
 	fi
 
 	# remove some file first
-	find /koolshare/init.d/ -name "*${module}.sh*"|xargs rm -rf >/dev/null 2>&1
+	find /koolshare/init.d/ -name "*${module}*"|xargs rm -rf >/dev/null 2>&1
 	find /koolshare/bin/ -name "*${module}*"|xargs rm -rf >/dev/null 2>&1
 	
 	# isntall file
@@ -153,11 +157,13 @@ install_now(){
 	cp -rf /tmp/${module}/uninstall.sh /koolshare/scripts/uninstall_${module}.sh
 
 	# Permissions
-	chmod +x /koolshare/bin/* >/dev/null 2>&1
-	chmod +x /koolshare/scripts/* >/dev/null 2>&1
+	chmod 755 /koolshare/bin/${module} >/dev/null 2>&1
+	chmod 755 /koolshare/scripts/${module}_*.sh >/dev/null 2>&1
 
 	# make start up script link
-	[ ! -L "/koolshare/init.d/S70${module}.sh" ] && ln -sf /koolshare/scripts/${module}_config.sh /koolshare/init.d/S70${module}.sh
+	if [ ! -L "/koolshare/init.d/S70${module}.sh" -a -f "/koolshare/scripts/${module}_config.sh" ];then
+		ln -sf /koolshare/scripts/${module}_config.sh /koolshare/init.d/S70${module}.sh
+	fi
 	
 	# intall different UI
 	install_ui
@@ -165,7 +171,7 @@ install_now(){
 	# dbus value
 	echo_date "设置插件默认参数..."
 	dbus set ddnsto_client_version=$(/koolshare/bin/ddnsto -v)
-	dbus set ddnsto_title="DDNSTO远程控制"
+	dbus set ddnsto_title="$TITLE"
 	dbus set ${module}_version="${PLVER}"
 	dbus set softcenter_module_${module}_version="${PLVER}"
 	dbus set softcenter_module_${module}_install="1"
@@ -174,7 +180,7 @@ install_now(){
 	dbus set softcenter_module_${module}_description="${DESCR}"
 
 	# re-enable
-	if [ "${ENABLE}" == "1" ];then
+	if [ "${ENABLE}" == "1" -a -f "/koolshare/scripts/ddnsto_config.sh" ];then
 		echo_date "安装完毕，重新启用${TITLE}插件！"
 		sh /koolshare/scripts/ddnsto_config.sh start
 	fi

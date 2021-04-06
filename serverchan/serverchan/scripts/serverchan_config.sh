@@ -75,8 +75,13 @@ onstart() {
     fi
 }
 
-# used by httpdb
 case $1 in
+start|restart)
+    remove_trigger_dhcp
+    remove_trigger_ifup
+    remove_cron_job
+    onstart
+    ;;
 stop)
     remove_trigger_dhcp
     remove_trigger_ifup

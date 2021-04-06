@@ -66,12 +66,12 @@ get_ui_type(){
 		ROG_RTAC86U=1
 	fi
 	# GT-AC2900
-	if [ "${MODEL}" == "GT-AC2900" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AC2900" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AC2900从386.1开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAC2900=0
 	fi
 	# GT-AX11000
-	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AX11000从386.2开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAX11000=0
 	fi
@@ -129,12 +129,6 @@ install_now(){
 	local DESCR="CloudFlare DDNS"
 	local PLVER=$(cat ${DIR}/version)
 
-	# stop first
-	local ENABLE=$(dbus get ${module}_enable)
-	if [ "${ENABLE}" == "1" ];then
-		sh /koolshare/scripts/aliddns_config.sh stop >/dev/null 2>&1
-	fi
-
 	# remove some file first
 	find /koolshare/init.d/ -name "*cfddns*" | xargs rm -rf
 
@@ -147,11 +141,12 @@ install_now(){
 	cp -rf /tmp/${module}/uninstall.sh /koolshare/scripts/uninstall_${module}.sh
 
 	# Permissions
-	chmod +X /koolshare/${module}/* >/dev/null 2>&1
-	chmod +X /koolshare/scripts/* >/dev/null 2>&1
+	chmod 755 /koolshare/scripts/${module}_*.sh >/dev/null 2>&1
 
 	# make start up script link
-	[ ! -L "/koolshare/init.d/S99${module}.sh" ] && ln -sf /koolshare/scripts/${module}_config.sh /koolshare/init.d/S99${module}.sh
+	if [ ! -L "/koolshare/init.d/S99${module}.sh" -a -f "/koolshare/scripts/${module}_config.sh" ];then
+		ln -sf /koolshare/scripts/${module}_config.sh /koolshare/init.d/S99${module}.sh
+	fi
 
 	# intall different UI
 	install_ui
@@ -164,18 +159,6 @@ install_now(){
 	dbus set softcenter_module_${module}_name="${module}"
 	dbus set softcenter_module_${module}_title="${TITLE}"
 	dbus set softcenter_module_${module}_description="${DESCR}"
-
-	# defalut value
-	if [ "$(nvram get ddns_server_x)" == "CUSTOM" ];then
-		nvram set ddns_server_x="WWW.ASUS.COM"
-		nvram commit
-	fi
-
-	# re-enable
-	if [ "${ENABLE}" == "1" ];then
-		echo_date "安装完毕，重新启用${TITLE}插件！"
-		sh /koolshare/scripts/aliddns_config.sh ks 1
-	fi
 	
 	# finish
 	echo_date "${TITLE}插件安装完毕！"

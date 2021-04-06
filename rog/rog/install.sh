@@ -66,12 +66,12 @@ get_ui_type(){
 		ROG_RTAC86U=1
 	fi
 	# GT-AC2900
-	if [ "${MODEL}" == "GT-AC2900" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AC2900" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AC2900从386.1开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAC2900=0
 	fi
 	# GT-AX11000
-	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AX11000从386.2开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAX11000=0
 	fi
@@ -110,9 +110,11 @@ install_ui(){
 	get_ui_type
 	if [ "${UI_TYPE}" == "ROG" ];then
 		echo_date "安装ROG皮肤！"
+		sed -i '/asuscss/d' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 	fi
 	if [ "${UI_TYPE}" == "TUF" ];then
 		echo_date "安装TUF皮肤！"
+		sed -i '/asuscss/d' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 		sed -i 's/3e030d/3e2902/g;s/91071f/92650F/g;s/680516/D0982C/g;s/cf0a2c/c58813/g;s/700618/74500b/g;s/530412/92650F/g' /koolshare/webs/Module_${module}.asp >/dev/null 2>&1
 	fi
 	if [ "${UI_TYPE}" == "ASUSWRT" ];then
@@ -136,21 +138,21 @@ install_now(){
 	cp -rf /tmp/${module}/uninstall.sh /koolshare/scripts/uninstall_${module}.sh
 	if [ ! -x "/koolshare/bin/jq" ]; then
 		echo_date "安装jq..."
-		cp -f /tmp/rog/bin/jq /koolshare/bin/
+		cp -f /tmp/${module}/bin/jq /koolshare/bin/
 	fi
 	if [ "${MODEL}" == "GT-AC5300" -a ! -x "/koolshare/bin/wl" ];then
 		echo_date "安装wl..."
-		cp -rf /tmp/rog/bin/wl /koolshare/bin/
+		cp -rf /tmp/${module}/bin/wl /koolshare/bin/
 	fi
 	if [ "${MODEL}" == "RAX80" ];then
 		echo_date "安装风扇控制开机启动..."
-		cp -rf /tmp/rog/init.d/* /koolshare/init.d/
+		cp -rf /tmp/${module}/init.d/* /koolshare/init.d/
 	fi
 
 	# Permissions
-	chmod +X /koolshare/scripts/* >/dev/null 2>&1
-	chmod +X /koolshare/bin/* >/dev/null 2>&1
-	chmod +X /koolshare/init.d/* >/dev/null 2>&1
+	chmod 755 /koolshare/bin/* >/dev/null 2>&1
+	chmod 755 /koolshare/scripts/rog_*.sh >/dev/null 2>&1
+	chmod 755 /koolshare/init.d/V50rog.sh >/dev/null 2>&1
 
 	# intall different UI
 	install_ui

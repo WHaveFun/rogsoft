@@ -66,12 +66,12 @@ get_ui_type(){
 		ROG_RTAC86U=1
 	fi
 	# GT-AC2900
-	if [ "${MODEL}" == "GT-AC2900" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AC2900" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AC2900从386.1开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAC2900=0
 	fi
 	# GT-AX11000
-	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "{FW_TYPE_CODE}" == "3" -o "{FW_TYPE_CODE}" == "4" ];then
+	if [ "${MODEL}" == "GT-AX11000" -o "${MODEL}" == "GT-AX11000_BO4" ] && [ "${FW_TYPE_CODE}" == "3" -o "${FW_TYPE_CODE}" == "4" ];then
 		# GT-AX11000从386.2开始已经支持梅林固件，其UI是ASUSWRT
 		ROG_GTAX11000=0
 	fi
@@ -131,7 +131,7 @@ install_now(){
 
 	# stop first
 	local ENABLE=$(dbus get ${module}_enable)
-	if [ "${ENABLE}" == "1" ];then
+	if [ "${ENABLE}" == "1" -a -f "/koolshare/scripts/zerotier_config" ];then
 		echo_date "先关闭zerotier插件，保证文件更新成功..."
 		/koolshare/scripts/zerotier_config stop
 	fi
@@ -169,8 +169,8 @@ install_now(){
 	fi
 
 	# Permissions
-	chmod +X /koolshare/scripts/* >/dev/null 2>&1
-	chmod +X /koolshare/bin/* >/dev/null 2>&1
+	chmod 755 /koolshare/scripts/* >/dev/null 2>&1
+	chmod 755 /koolshare/bin/* >/dev/null 2>&1
 
 	# intall different UI
 	install_ui
@@ -185,7 +185,7 @@ install_now(){
 	dbus set softcenter_module_${module}_description="${DESCR}"
 
 	# re-enable
-	if [ "${ENABLE}" == "1" ];then
+	if [ "${ENABLE}" == "1" -a -f "/koolshare/scripts/zerotier_config" ];then
 		echo_date "安装完毕，重新启用zerotier插件！"
 		/koolshare/scripts/zerotier_config start
 	fi

@@ -146,8 +146,8 @@ install_now(){
 	fi
 
 	# Permissions
-	chmod +X /koolshare/bin/* >/dev/null 2>&1
-	chmod +X /koolshare/scripts/* >/dev/null 2>&1
+	chmod 755 /koolshare/bin/* >/dev/null 2>&1
+	chmod 755 /koolshare/scripts/* >/dev/null 2>&1
 
 	# intall different UI
 	install_ui
