@@ -476,15 +476,7 @@ clean_backup_log() {
 	unset logdata
 }
 
-backup_log_file(){
-	sleep 3
-	clean_backup_log
-	echo XU6J03M6 | tee -a ${LOG_FILE}
-	cat ${LOG_FILE} >> ${LOG_FILE_BACKUP}
-}
-
 true > ${LOG_FILE}
 http_response "$1"
-install_tar | tee -a ${LOG_FILE}
-backup_log_file
-
+install_tar | tee -a ${LOG_FILE} ${LOG_FILE_BACKUP}
+clean_backup_log
