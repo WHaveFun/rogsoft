@@ -123,6 +123,54 @@ install_ui(){
 	fi
 }
 
+copy() {
+	# echo_date "$*" 2>&1
+	"$@" 2>/dev/null
+	# "$@" 2>&1
+	if [ "$?" != "0" ];then
+		#echo_date "$* 命令运行错误！可能是/jffs分区空间不足！"
+		echo_date "复制文件错误！可能是/jffs分区空间不足！"
+		echo_date "尝试删除本次已经安装的文件..."
+		remove_files
+		exit 1
+	fi
+}
+
+remove_files(){
+	# files should be removed before install
+	echo_date "删除zerotier插件相关文件！"
+	rm -rf /tmp/zerotier* >/dev/null 2>&1
+	rm -rf /koolshare/bin/file >/dev/null 2>&1
+	rm -rf /koolshare/bin/zerotier* >/dev/null 2>&1
+	rm -rf /koolshare/res/icon-zerotier.png >/dev/null 2>&1
+	rm -rf /koolshare/res/zt_*.png >/dev/null 2>&1
+	rm -rf /koolshare/scripts/zerotier_* >/dev/null 2>&1
+	rm -rf /koolshare/scripts/uninstall_zerotier.sh >/dev/null 2>&1
+	rm -rf /koolshare/webs/Module_zerotier.asp >/dev/null 2>&1
+	rm -rf /koolshare/share/misc/magic >/dev/null 2>&1
+	find /koolshare/init.d -name "*zerotier*" | xargs rm -rf
+
+	if [ -d "/koolshare/share" ];then
+		local FLAG_1=$(ls -aelR /koolshare/share | sed '/:$/d' | sed '/^$/d' | sed '/^d/d' 2>/dev/null)
+		if [ -z "$FLAG_1" ];then
+			rm -rf /koolshare/share
+		fi
+	fi
+
+	if [ -d "/koolshare/lib" ];then
+		cd /koolshare/lib
+		if [ -f "/koolshare/lib/.flag_zerotier.txt" ];then
+			echo_date "删除zerotier插件相关依赖！"
+			cat .flag_*.txt | sort -k2 | uniq -f1 -u | grep -E "^zerotier" | awk '{print $2}' | xargs rm -rf >/dev/null 2>&1
+			rm -rf .flag_zerotier.txt
+		fi
+		if [ -z "$(ls)" ];then
+			cd /
+			rm -rf /koolshare/lib
+		fi
+	fi
+}
+
 install_now(){
 	# default value
 	local TITLE="ZeroTier"
@@ -144,28 +192,28 @@ install_now(){
 	echo_date "安装插件相关文件..."
 	local ARCH=$(uname -m)
 	cd /tmp
-	cp -rf /tmp/${module}/res/* /koolshare/res/
-	cp -rf /tmp/${module}/scripts/* /koolshare/scripts/
-	cp -rf /tmp/${module}/init.d/* /koolshare/init.d/
-	cp -rf /tmp/${module}/webs/* /koolshare/webs/
-	cp -rf /tmp/${module}/share /koolshare/
-	cp -rf /tmp/${module}/uninstall.sh /koolshare/scripts/uninstall_${module}.sh
+	copy cp -rf /tmp/${module}/res/* /koolshare/res/
+	copy cp -rf /tmp/${module}/scripts/* /koolshare/scripts/
+	copy cp -rf /tmp/${module}/init.d/* /koolshare/init.d/
+	copy cp -rf /tmp/${module}/webs/* /koolshare/webs/
+	copy cp -rf /tmp/${module}/share /koolshare/
+	copy cp -rf /tmp/${module}/uninstall.sh /koolshare/scripts/uninstall_${module}.sh
 	mkdir -p /koolshare/lib/
 	if [ ! -x "/koolshare/bin/jq" ]; then
 		echo_date "安装jq..."
-		cp -fP /tmp/${module}/bin/jq /koolshare/bin/
+		copy cp -fP /tmp/${module}/bin/jq /koolshare/bin/
 	fi
 	if [ "$ARCH" == "aarch64" ]; then
 		echo_date "安装64位zerotier-one..."
-		cp -fP /tmp/${module}/bin64/* /koolshare/bin/
-		cp -fP /tmp/${module}/lib64/* /koolshare/lib/
-		cp -fP /tmp/${module}/lib64/.flag_*.txt /koolshare/lib/
+		copy cp -fP /tmp/${module}/lib64/.flag_*.txt /koolshare/lib/
+		copy cp -fP /tmp/${module}/bin64/* /koolshare/bin/
+		copy cp -fP /tmp/${module}/lib64/* /koolshare/lib/
 	fi
 	if [ "$ARCH" == "armv7l" ]; then
 		echo_date "安装32位zerotier-one..."
-		cp -fP /tmp/${module}/bin32/* /koolshare/bin/
-		cp -fP /tmp/${module}/lib32/* /koolshare/lib/
-		cp -fP /tmp/${module}/lib32/.flag_*.txt /koolshare/lib/
+		copy cp -fP /tmp/${module}/lib32/.flag_*.txt /koolshare/lib/
+		copy cp -fP /tmp/${module}/bin32/* /koolshare/bin/
+		copy cp -fP /tmp/${module}/lib32/* /koolshare/lib/
 	fi
 
 	# Permissions

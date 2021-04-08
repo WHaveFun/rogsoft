@@ -1,5 +1,11 @@
 Koolshare Asuswrt-Merlin softeware center Changelog
 ===========================================
+1.7.1
+   - fix	修复连续安装插件的时候，日志显示被无故中断的问题
+
+1.7.0
+   - fix	修复GT-AX11000梅林固件安装插件UI不正确的情况
+
 1.6.9
    - fix	修复rog，tuf皮肤机型插件皮肤安装错误的问题；
 
