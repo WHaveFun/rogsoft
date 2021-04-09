@@ -42,10 +42,6 @@
 | [RT-AX56U](https://koolshare.cn/thread-192282-1-1.html)      | BCM6755 | axhnd.675x   | ARMV7 | 4.1.52 | asuswrt |
 | [RT-AX58U](https://koolshare.cn/thread-194117-1-1.html)      | BCM6755 | axhnd.675x   | ARMV7 | 4.1.52 | asuswrt |
 
-- 点击表格中的机型可以前往对应机型的koolshare固件下载；
-- ZenWiFi AX6600M/灵耀 AX6600M/RT-AX95Q 这三个名字代表的是一个机型；
-- ZenWiFi_XD4/灵耀AX魔方/RT-AX56_XD4 这三个名字代表的是一个机型；
-
 ## 用户须知
 
 - 本项目，即[hnd软件中心（rogsoft）](hnd/axhnd软件中心（rogsoft）)与梅林[arm380](https://github.com/koolshare/koolshare.github.io)、[arm384/arm386](https://github.com/koolshare/armsoft)软件中心的插件不兼容！所以不要用离线安装功能安装其它平台的软件中心！！
