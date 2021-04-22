@@ -1,5 +1,8 @@
 Koolshare Asuswrt-Merlin wifiboost Changelog for HND/AXHND platform
 ===========================================
+4.0
+   - update	更新主脚本，优化安装
+
 3.8 - 3.9
    - fix	修复固件类型显示错误的问题
    - update	更新安装脚本

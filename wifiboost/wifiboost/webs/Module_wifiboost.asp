@@ -206,6 +206,10 @@ body .layui-layer-lan .layui-layer-btn {text-align:center}
 }
 </style>
 <script>
+var MODEL = '<% nvram_get("odmpid"); %>' || '<% nvram_get("productid"); %>';
+var BUILD = '<% nvram_get("buildno"); %>'
+var FWVER = '<% nvram_get("extendno"); %>';
+var RC_SUPPORT = '<% nvram_get("rc_support"); %>';
 var orig_region = '<% nvram_get("location_code"); %>';
 var odm = '<% nvram_get("productid"); %>'
 var params_chk = ['wifiboost_boost_24', 'wifiboost_boost_52', 'wifiboost_boost_58'];
@@ -475,7 +479,7 @@ function show_err_code() {
 	}
 	switch(err_code){
 		case "1":
-			err_mesg = '<br/><span style="color: #CC3300">错误代码1：当前路由【RAX80】不支持wifiboost插件！</span><br/><br>';
+			err_mesg = '<br/><span style="color: #CC3300">错误代码1：当前路由【' + MODEL + '】不支持wifiboost插件！</span><br/><br>';
 		break;
 		case "2":
 			err_mesg = '<br/><span style="color: #CC3300">错误代码2：当前路由不支持wifiboost插件！请尝试重刷正确的固件后重试！！</span><br/><br>';
@@ -963,10 +967,6 @@ function verifyFields(r) {
 												<th>固件版本</th>
 												<td id="wifiboost_ver"></td>
 												<script type="text/javascript">
-													var MODEL = '<% nvram_get("odmpid"); %>' || '<% nvram_get("productid"); %>';
-													var BUILD = '<% nvram_get("buildno"); %>'
-													var FWVER = '<% nvram_get("extendno"); %>';
-													var RC_SUPPORT = '<% nvram_get("rc_support"); %>';
 													if (BUILD.indexOf(".") != -1){
 														if(RC_SUPPORT.indexOf("koolsoft") != -1){
 															$("#wifiboost_ver").html(MODEL + "&nbsp;&nbsp;" + BUILD + "_" + FWVER + "&nbsp;&nbsp;梅林改版固件");
