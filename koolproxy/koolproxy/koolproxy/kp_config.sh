@@ -39,7 +39,7 @@ write_sourcelist(){
 	else
 		cat > $KP_DIR/data/source.list <<-EOF
 			1|koolproxy.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/koolproxy.txt|
-			1|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt/|
+			1|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt|
 			1|kp.dat|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/kp.dat|
 			1|user.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/user.txt|
 			
