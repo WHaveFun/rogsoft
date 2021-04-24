@@ -1060,24 +1060,24 @@ function save(){
 	//acllist += data2[ i ].join( '<' ) + '>';
 	var sourceList="";
 	if(E("koolproxy_rule_enable_d1").checked == true){
-		sourceList += "1|koolproxy.txt|https://kprule.com/koolproxy.txt|静态规则>"
+		sourceList += "1|koolproxy.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/koolproxy.txt|静态规则>"
 	}else{
-		sourceList += "0|koolproxy.txt|https://kprule.com/koolproxy.txt|静态规则>"
+		sourceList += "0|koolproxy.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/koolproxy.txt|静态规则>"
 	}
 	if(E("koolproxy_rule_enable_d2").checked == true){
-		sourceList += "1|daily.txt|https://kprule.com/daily.txt|每日规则>"
+		sourceList += "1|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt|每日规则>"
 	}else{
-		sourceList += "0|daily.txt|https://kprule.com/daily.txt|每日规则>"
+		sourceList += "0|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt|每日规则>"
 	}
 	if(E("koolproxy_rule_enable_d3").checked == true){
-		sourceList += "1|kp.dat|https://kprule.com/kp.dat|视频规则>"
+		sourceList += "1|kp.dat|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/kp.dat|视频规则>"
 	}else{
-		sourceList += "0|kp.dat|https://kprule.com/kp.dat|视频规则>"
+		sourceList += "0|kp.dat|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/kp.dat|视频规则>"
 	}
 	if(E("koolproxy_rule_enable_d4").checked == true){
-		sourceList += "1|user.txt||自定规则>"
+		sourceList += "1|user.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/user.txt|自定规则>"
 	}else{
-		sourceList += "0|user.txt||自定规则>"
+		sourceList += "0|user.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/user.txt|自定规则>"
 	}
 	maxid = parseInt($("#rule_table > tbody > tr:eq(-2) > td:nth-child(1) > input").attr("id").split("_")[3]);
 	for ( var i = 1; i <= maxid; ++i ) {
