@@ -42,7 +42,6 @@ write_sourcelist(){
 			1|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt|
 			1|kp.dat|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/kp.dat|
 			1|user.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/user.txt|
-			
 		EOF
 	fi
 	
