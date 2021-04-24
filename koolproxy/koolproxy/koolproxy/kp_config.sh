@@ -38,10 +38,10 @@ write_sourcelist(){
 		echo $koolproxy_sourcelist|sed 's/>/\n/g' > $KP_DIR/data/source.list
 	else
 		cat > $KP_DIR/data/source.list <<-EOF
-			1|koolproxy.txt|https://kprule.com/koolproxy.txt|
-			1|daily.txt|https://kprule.com/daily.txt|
-			1|kp.dat|https://kprule.com/kp.dat|
-			1|user.txt||
+			1|koolproxy.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/koolproxy.txt|
+			1|daily.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/daily.txt/|
+			1|kp.dat|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/kp.dat|
+			1|user.txt|https://cdn.jsdelivr.net/gh/ycg31/KoolProxy@master/rules/user.txt|
 			
 		EOF
 	fi
@@ -49,7 +49,7 @@ write_sourcelist(){
 	if [ -n "$koolproxy_custom_rule" ];then
 		echo $koolproxy_custom_rule| base64_decode |sed 's/\\n/\n/g' > $KP_DIR/data/rules/user.txt
 		dbus remove koolproxy_custom_rule
-	fi
+	fihttps://github.com/WHaveFun/rogsoft/blob/master/koolproxy/koolproxy/koolproxy/kp_config.sh
 }
 
 detect_start_up(){
